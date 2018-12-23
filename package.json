@@ -1,0 +1,23 @@
+{
+  "name": "nodejs-course",
+  "version": "1.0.0",
+  "description": "A custom nodejs course",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/500tech/nodejs-course.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/500tech/nodejs-course/issues"
+  },
+  "homepage": "https://github.com/500tech/nodejs-course#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4"
+  }
+}
