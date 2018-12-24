@@ -6,8 +6,8 @@ function initDB() {
         host: 'localhost',
         dialect: 'postgres',
         pool: {
-            max: 5,
-            min: 0,
+            max: 50,
+            min: 2,
             // The maximum time, in milliseconds, that pool will try to get connection before throwing error
             acquire: 30000,
             idle: 10000
