@@ -13,11 +13,13 @@ app.use(after)
 // routes();
 require('./routers')(app);
 
-app.listen(8080, (err) => {
+const port = process.env.PORT || 8080
+
+app.listen(port, (err) => {
     if (err) {
         console.error(err);
     } else {
-        console.log('Server is up: 8080');
+        console.log('Server is up: ' + port);
 
     }
 })

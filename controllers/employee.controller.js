@@ -50,8 +50,26 @@ function getEmployeeByName(req, res) {
     }
 }
 
+function getEmployeeByStar(req, res) {
+
+    employeeService.getAllEmployees()
+        .then((emps) => {
+            const employees = JSON.parse(emps);
+            const filter = employees.filter((emp) => {
+                return emp.name === req.params.name;
+            })
+
+            res.status(200).json({ employees: filter })
+
+        }).catch((err) => {
+            res.status(500).json({ reason: err })
+        })
+    Î
+}
+
 module.exports = {
     getEmployees,
     newEmployees,
-    getEmployeeByName
+    getEmployeeByName,
+    getEmployeeByStar
 }
