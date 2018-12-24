@@ -2,7 +2,22 @@ const Sequelize = require('sequelize');
 
 function defineModel(sequelize) {
     return sequelize.define('employee', {
-        name: Sequelize.STRING,
+        firstname: Sequelize.STRING,
+        lastname: Sequelize.STRING,
+        fullname: {
+            type: Sequelize.STRING,
+            get() {
+                const first = this.getDataValue('firstname');
+                const last = this.getDataValue('lastname');
+                // 'this' allows you to access attributes of the instance
+                return `${first} ${last}`;
+            }
+        },
+        email: {
+            type: Sequelize.STRING, unique: true, validate: {
+                isEmail: true
+            }
+        },
         country: { type: Sequelize.STRING, defaultValue: 'Israel' },
         age: Sequelize.INTEGER,
         id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true },

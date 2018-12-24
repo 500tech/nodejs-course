@@ -8,13 +8,24 @@ function initDB() {
         pool: {
             max: 5,
             min: 0,
+            // The maximum time, in milliseconds, that pool will try to get connection before throwing error
             acquire: 30000,
             idle: 10000
         },
     });
     models.employee = require('./employee.model')(sequelize);
-    return  sequelize.sync()
+    models.department = require('./department.model')(sequelize);
+
+    defineRelations();
+
+    return sequelize.sync({ force: true })
 }
+
+function defineRelations() {
+    models.employee.belongsTo(models.department);
+    models.department.hasMany(models.employee);
+}
+
 module.exports = {
     initDB,
     models
