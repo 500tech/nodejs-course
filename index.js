@@ -3,7 +3,8 @@ const routes = require('./routers');
 const bodyParser = require("body-parser");
 const before = require("./middleware/before.middleware");
 const after = require("./middleware/after.middleware");
-
+const express = require("express");
+const contextService = require('request-context');
 
 // const app = express();
 app.set('view engine', 'ejs')
@@ -11,6 +12,10 @@ app.set('view engine', 'ejs')
 app.use(before)
 app.use(bodyParser.json())
 app.use(after);
+app.use((req,res,next)=>{
+    contextService.set('requestId', req.headers['requestId'] || uuid())
+})
+
 
 const utils = require("util");
 
@@ -18,6 +23,19 @@ const utils = require("util");
 // app.listen = utils.promisify(app.listen);
 
 // routes();
+const v1 = express.Router();
+v1.get('/test', (req, res) => {
+    res.json({ "version": "1" })
+})
+
+const v2 = express.Router();
+v2.get('/test', (req, res) => {
+    res.json({ "version": "2" })
+})
+
+app.use('/v1',v1);
+app.use('/v2',v2);
+
 require('./routers')(app);
 
 

@@ -1,7 +1,6 @@
 const fs = require("fs");
 
 function getAllEmployees() {
-
     return readFilePromise("test.json")
     // fs.readFile("test.json", callback);
 

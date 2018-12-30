@@ -1,9 +1,10 @@
 const employeeService = require("../services/employee-service");
 const request = require("request-promise");
 const db = require("../db");
-
+const logger = require("cellebrite-logs")
 
 async function getEmployees(req, res) {
+
     // if (req.url.indexOf('auth') >= 0) {
 
     // try {
@@ -35,6 +36,9 @@ async function getEmployees(req, res) {
         });
 
     } catch (e) {
+        logger.error('bala alvlac ', {
+            correlationId:req.headers['x-cellebrite-correlation'] /// sdf-sadf-sad=fas-df
+        })
         res.status(500).json({ err: e });
     }
 
