@@ -17,8 +17,10 @@
   },
   "homepage": "https://github.com/500tech/nodejs-course#readme",
   "dependencies": {
+    "cellebrite-express": "file:///Users/michaelhaberman/Documents/github/500-tech/nodejs-course/cellebrite-express/",
     "body-parser": "^1.18.3",
-    "express": "^4.16.4",
+    "ejs": "^2.6.1",
+    "express": "4.16.4",
     "pg": "^7.7.1",
     "request": "^2.88.0",
     "request-promise": "^4.2.2",

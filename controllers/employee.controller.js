@@ -1,37 +1,55 @@
 const employeeService = require("../services/employee-service");
 const request = require("request-promise");
+const db = require("../db");
+
+
 async function getEmployees(req, res) {
     // if (req.url.indexOf('auth') >= 0) {
 
-    try{
-    const response = await request({ 
-        uri:'http://localhost:8082/salary',
-        method:'GET',
-        headers:{
-            'x-cellebrite-auth':"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjoiTWljaGFlbCIsImlhdCI6MTU0NTY2MDM1NiwiZXhwIjoxNTQ2MjY1MTU2fQ.9g1-WyINGmw3cAWPH6k7eQj0-_-rwL_QulnYvx8IVzo"
-        }
-    })
-    console.log(JSON.stringify(response));
+    // try {
+    //     const response = await request({
+    //         uri: 'http://localhost:8082/salary',
+    //         method: 'GET',
+    //         headers: {
+    //             'x-cellebrite-auth': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjoiTWljaGFlbCIsImlhdCI6MTU0NTY2MDM1NiwiZXhwIjoxNTQ2MjY1MTU2fQ.9g1-WyINGmw3cAWPH6k7eQj0-_-rwL_QulnYvx8IVzo"
+    //         }
+    //     })
+    //     console.log(JSON.stringify(response));
 
-} catch(e) {
-    console.log("error: " + e);
+    // } catch (e) {
+    //     console.log("error: " + e);
 
-}
+    // }
 
+    try {
+        //                                      undefined
+        const [employeeFromDb, employeeFromFs, third] = await Promise.all([
+            db.models.employees.find({}),
+            employeeService.getAllEmployees()])
+        // const employess = await ;
+        // const employeesFs = await employeeService.getAllEmployees()
 
-    employeeService.getAllEmployees()
-        .then((data) => {
-            console.log(data);
+        res.json({
+            fs: employeeFromFs,
+            db: employeeFromDb
+        });
 
-            res.statusCode = 200;
-            res.end(data);
-        })
-        .catch((err) => {
-            console.error(err);
+    } catch (e) {
+        res.status(500).json({ err: e });
+    }
 
-            res.statusCode = 500;
-            res.end('Error');
-        })
+    // .then((data) => {
+    //     console.log(data);
+
+    //     res.statusCode = 200;
+    //     res.end(data);
+    // })
+    // .catch((err) => {
+    //     console.error(err);
+
+    //     res.statusCode = 500;
+    //     res.end('Error');
+    // })
 
     // } else {
     //     res.statusCode = 401;
@@ -40,7 +58,6 @@ async function getEmployees(req, res) {
     console.log();
 
 }
-
 
 function newEmployees(req, res) {
     console.log(JSON.stringify(req.body));
@@ -81,12 +98,22 @@ function getEmployeeByStar(req, res) {
         }).catch((err) => {
             res.status(500).json({ reason: err })
         })
-    Î
+
+}
+
+const memoryLeak = [];
+
+function preview(req, res) {
+    for (let i = 0; i < 500; i++) {
+        memoryLeak.push(";aksdfjglaksjdfalkjsdhfklajshfkjashfkjasdhfakjsdf")
+    }
+    res.render('employee', { name: 'ksadfj' })
 }
 
 module.exports = {
     getEmployees,
     newEmployees,
     getEmployeeByName,
-    getEmployeeByStar
+    getEmployeeByStar,
+    preview
 }

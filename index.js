@@ -1,10 +1,13 @@
-const express = require("express");
+const app = require("cellebrite-express")();
 const routes = require('./routers');
 const bodyParser = require("body-parser");
 const before = require("./middleware/before.middleware");
 const after = require("./middleware/after.middleware");
 
-const app = express();
+
+// const app = express();
+app.set('view engine', 'ejs')
+
 app.use(before)
 app.use(bodyParser.json())
 app.use(after);
@@ -12,7 +15,7 @@ app.use(after);
 const utils = require("util");
 
 // require('./routers').defineRoutes(app);
-app.listen = utils.promisify(app.listen);
+// app.listen = utils.promisify(app.listen);
 
 // routes();
 require('./routers')(app);
@@ -25,8 +28,8 @@ const db = require('./db');
         await db.initDB()
         const port = process.env.PORT || 8080
 
-        await app.listen(port)
-        console.log('Server is up: ' + port);
+        // await app.listen(port)
+        // console.log('Server is up: ' + port);
 
         // // await db.models.employee.build({ name: "Dudu", email: "a@a.com" }).save()
         // const dudu2 = await db.models.employee.create({ name: "Dudu 2", email: "a@a.com" })
