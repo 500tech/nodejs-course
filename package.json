@@ -17,12 +17,14 @@
   },
   "homepage": "https://github.com/500tech/nodejs-course#readme",
   "dependencies": {
-    "cellebrite-express": "file:///Users/michaelhaberman/Documents/github/500-tech/nodejs-course/cellebrite-express/",
     "body-parser": "^1.18.3",
+    "cellebrite-express": "file://./cellebrite-express/#v3",
+    "cellebrite-logs": "file://./cellebrite-logs/",
     "ejs": "^2.6.1",
     "express": "4.16.4",
     "pg": "^7.7.1",
     "request": "^2.88.0",
+    "request-context": "^2.0.0",
     "request-promise": "^4.2.2",
     "sequelize": "^4.42.0"
   }

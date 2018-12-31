@@ -9,6 +9,7 @@ const contextService = require('request-context');
 // const app = express();
 app.set('view engine', 'ejs')
 
+console.log('pm2')
 app.use(before)
 app.use(bodyParser.json())
 app.use(after);
